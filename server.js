@@ -12,12 +12,25 @@ assert.ok(process.env.SECRET, 'SECRET environment variable is required.');
 const relay = new Gpio(relayPin, 'out');
 const sensor = new Gpio(sensorPin, 'in');
 
+let isClosing = false;
+let isOpening = false;
+
 function toggleRelay() {
   relay.writeSync(1);
   setTimeout(() => relay.writeSync(0), 1000);
 }
 
-const getSwitchState = () => sensor.readSync() === 1 ? 'closed' : 'open';
+const getSwitchState = () => {
+  if (isClosing) {
+    return 'closing';
+  } else if (isOpening) {
+    return 'opening';
+  } else if (sensor.readSync() === 1) {
+    return 'closed';
+  } else {
+    return 'open';
+  }
+}
 
 // Use super basic/insecure secret authentication
 app.use((req, res, next) => {
@@ -31,6 +44,8 @@ app.use((req, res, next) => {
 app.get('/open', (req, res) => {
   if (getSwitchState() === 'closed' || (req.query.force && req.query.force === 'true')) {
     toggleRelay();
+    isOpening = true;
+    setTimeout(() => { isOpening = false; }, 15000);
     res.sendStatus(200);
   } else {
     res.send('Garage already open!');
@@ -41,6 +56,8 @@ app.get('/open', (req, res) => {
 app.get('/close', (req, res) => {
   if (getSwitchState() === 'open' || (req.query.force && req.query.force === 'true')) {
     toggleRelay();
+    isClosing = true;
+    setTimeout(() => { isClosing = false; }, 15000);
     res.sendStatus(200);
   } else {
     res.send('Garage already closed!');
