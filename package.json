@@ -1,0 +1,16 @@
+{
+  "name": "garage_relay",
+  "version": "1.0.0",
+  "description": "Control a garage door via a relay and HTTP requests",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sam Beckett",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "onoff": "^4.1.0"
+  }
+}
