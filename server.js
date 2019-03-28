@@ -17,7 +17,7 @@ function toggleRelay() {
   setTimeout(() => relay.writeSync(0), 1000);
 }
 
-const getSwitchState = () => sensor.readSync() === 0 ? 'closed' : 'open';
+const getSwitchState = () => sensor.readSync() === 1 ? 'closed' : 'open';
 
 // Use super basic/insecure secret authentication
 app.use((req, res, next) => {
