@@ -11,3 +11,12 @@
 `npm install`
 
 `npm start`
+
+## Troubleshooting
+I had to run the following commands in order to resolve permission errors:
+
+```
+sudo chown -R root:gpio /sys/class/gpio && sudo chmod -R 770 /sys/class/gpio;\
+sudo chown -R root:gpio /sys/devices/virtual/gpio && sudo chmod -R 770 /sys/devices/virtual/gpio;\
+sudo chown -R root:gpio /sys$devpath && sudo chmod -R 770 /sys$devpath
+```

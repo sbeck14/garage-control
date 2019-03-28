@@ -29,17 +29,23 @@ app.use((req, res, next) => {
 });
 
 app.get('/open', (req, res) => {
-  if (getSwitchState() === 'closed') {
+  if (getSwitchState() === 'closed' || (req.query.force && req.query.force === 'true')) {
     toggleRelay();
+    res.sendStatus(200);
+  } else {
+    res.send('Garage already open!');
+    res.status(400);
   }
-  res.sendStatus(200);
 });
 
 app.get('/close', (req, res) => {
-  if (getSwitchState() === 'open') {
+  if (getSwitchState() === 'open' || (req.query.force && req.query.force === 'true')) {
     toggleRelay();
+    res.sendStatus(200);
+  } else {
+    res.send('Garage already closed!');
+    res.status(400);
   }
-  res.sendStatus(200);
 });
 
 app.get('/state', (req, res) => {
