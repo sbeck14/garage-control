@@ -22,17 +22,13 @@ function toggleRelay() {
 
 const getSwitchState = () => {
   if (isClosing) {
-    // return 'closing';
-    return 3;
+    return 'CLOSING';
   } else if (isOpening) {
-    // return 'opening';
-    return 2
+    return 'OPENING';
   } else if (sensor.readSync() === 1) {
-    // return 'closed';
-    return 1;
+    return 'CLOSED';
   } else {
-    // return 'open';
-    return 0;
+    return 'OPEN';
   }
 }
 
