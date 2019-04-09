@@ -22,13 +22,17 @@ function toggleRelay() {
 
 const getSwitchState = () => {
   if (isClosing) {
-    return 'closing';
+    // return 'closing';
+    return 3;
   } else if (isOpening) {
-    return 'opening';
+    // return 'opening';
+    return 2
   } else if (sensor.readSync() === 1) {
-    return 'closed';
+    // return 'closed';
+    return 1;
   } else {
-    return 'open';
+    // return 'open';
+    return 0;
   }
 }
 
@@ -48,8 +52,8 @@ app.get('/open', (req, res) => {
     setTimeout(() => { isOpening = false; }, 15000);
     res.sendStatus(200);
   } else {
-    res.send('Garage already open!');
-    res.status(400);
+    // res.send('Garage already open!');
+    res.sendStatus(400);
   }
 });
 
@@ -60,8 +64,8 @@ app.get('/close', (req, res) => {
     setTimeout(() => { isClosing = false; }, 15000);
     res.sendStatus(200);
   } else {
-    res.send('Garage already closed!');
-    res.status(400);
+    // res.send('Garage already closed!');
+    res.sendStatus(400);
   }
 });
 
