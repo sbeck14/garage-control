@@ -42,32 +42,48 @@ app.use((req, res, next) => {
 });
 
 app.get('/open', (req, res) => {
+  console.log(`Received 'GET /open' from ${req.ip}`);
   if (getSwitchState() === 'CLOSED' || (req.query.force && req.query.force === 'true')) {
+    console.log('Opening garage door...');
     toggleRelay();
+    console.log('Setting state to OPENING');
     isOpening = true;
-    setTimeout(() => { isOpening = false; }, 15000);
+    setTimeout(() => { 
+      console.log('Setting state to OPEN');
+      isOpening = false; 
+    }, 15000);
     res.send('OPENING');
     res.status(200);
   } else {
+    console.log('Garage already open!');
     res.send('Garage already open!');
     res.sendStatus(400);
   }
 });
 
 app.get('/close', (req, res) => {
+  console.log(`Received 'GET /close' from ${req.ip}`);
   if (getSwitchState() === 'OPEN' || (req.query.force && req.query.force === 'true')) {
+    console.log('Closing garage door...');
     toggleRelay();
+    console.log('Setting state to CLOSING');
     isClosing = true;
-    setTimeout(() => { isClosing = false; }, 15000);
+    setTimeout(() => { 
+      isClosing = false; 
+      console.log('Setting state to CLOSED');
+    }, 15000);
     res.send('CLOSING');
     res.status(200);
   } else {
+    console.log('Garage already closed!');
     res.send('Garage already closed!');
     res.sendStatus(400);
   }
 });
 
 app.get('/state', (req, res) => {
+  console.log(`Received 'GET /state' from ${req.ip}`);
+  console.log(`Garage is ${getSwitchState()}`);
   res.send(getSwitchState());
   res.status(200);
 });
