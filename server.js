@@ -42,25 +42,27 @@ app.use((req, res, next) => {
 });
 
 app.get('/open', (req, res) => {
-  if (getSwitchState() === 'closed' || (req.query.force && req.query.force === 'true')) {
+  if (getSwitchState() === 'CLOSED' || (req.query.force && req.query.force === 'true')) {
     toggleRelay();
     isOpening = true;
     setTimeout(() => { isOpening = false; }, 15000);
-    res.sendStatus(200);
+    res.send('OPENING');
+    res.status(200);
   } else {
-    // res.send('Garage already open!');
+    res.send('Garage already open!');
     res.sendStatus(400);
   }
 });
 
 app.get('/close', (req, res) => {
-  if (getSwitchState() === 'open' || (req.query.force && req.query.force === 'true')) {
+  if (getSwitchState() === 'OPEN' || (req.query.force && req.query.force === 'true')) {
     toggleRelay();
     isClosing = true;
     setTimeout(() => { isClosing = false; }, 15000);
-    res.sendStatus(200);
+    res.send('CLOSING');
+    res.status(200);
   } else {
-    // res.send('Garage already closed!');
+    res.send('Garage already closed!');
     res.sendStatus(400);
   }
 });
