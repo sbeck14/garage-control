@@ -1,0 +1,16 @@
+[Unit]
+Description=Garage Control
+
+[Service]
+EnvironmentFile=/home/garage-control/garage.env
+ExecStart=/home/garage-control/garage-control/start.sh
+WorkingDirectory=/home/garage-control/garage-control
+LimitNOFILE=4096
+IgnoreSIGPIPE=false
+KillMode=control-group
+User=garage-control
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
