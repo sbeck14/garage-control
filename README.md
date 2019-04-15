@@ -3,7 +3,7 @@ Control a garage door via HTTP requests and a raspberry pi
 
 ## Environment
 - `SECRET`: Secret phrase to provide for super secure authentication. Provide this as a query parameter
-  - e.g. `http://localhost:3000/?secret=secret`
+  - e.g. `http://localhost:3000/open?secret=secret`
 - `PORT`: Port on which to listen for requests
 - `RELAY_PIN`: GPIO pin connected to the relay module
 - `SENSOR_PIN`: GPIO pin connected to the sensor/reed switch
@@ -19,6 +19,9 @@ Control a garage door via HTTP requests and a raspberry pi
 | GET  | /open    | Open garage door          | 200 OPENING <br> 400 Garage already open!   |
 | GET  | /close   | Close garage door         | 200 CLOSING <br> 400 Garage already closed! |
 | GET  | /state   | Get current garage status | 200 CLOSED | OPEN | CLOSING | OPENING  |
+
+### Example
+`curl http://localhost:3000/open?secret=secret`
 
 ## Running as a Service
 Roughly follow this guide: https://gist.github.com/joepie91/73ce30dd258296bd24af23e9c5f761aa
