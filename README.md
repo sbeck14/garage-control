@@ -13,6 +13,13 @@ Control a garage door via HTTP requests and a raspberry pi
 
 `npm start`
 
+## API
+| Type | Endpoint | Description               | Result                                 |
+|------|----------|---------------------------|----------------------------------------|
+| GET  | /open    | Open garage door          | 200 OPENING <br> 400 Garage already open!   |
+| GET  | /close   | Close garage door         | 200 CLOSING <br> 400 Garage already closed! |
+| GET  | /state   | Get current garage status | 200 CLOSED | OPEN | CLOSING | OPENING  |
+
 ## Running as a Service
 Roughly follow this guide: https://gist.github.com/joepie91/73ce30dd258296bd24af23e9c5f761aa
 
